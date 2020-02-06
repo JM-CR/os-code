@@ -9,14 +9,19 @@
 #include <stdbool.h>
 #include "queue.h"
 
-// Prototypes
+// Main prototypes
 void waitForEnter(void);
 bool evaluate( int option );
 
-// Main program
+// Private variables
+static Number_t *root = NULL;
+
 int main(void) {
 
+    // Initialize
     int option;
+
+    // User's logic
     do {
         printf("\nChoose your option: \n");
         printf(
@@ -33,7 +38,7 @@ int main(void) {
 }
 
 
-// Implementation
+// Prototypes' implementation
 
 /**
  * Pauses the program until the user presses [Enter].
@@ -45,26 +50,29 @@ void waitForEnter(void) {
 }
 
 /**
+ * Executes a command based on the option from the menu.
  *
+ * @param option Chosen option.
+ * @return True if the option was valid.
  */
 bool evaluate( int option ) {
     switch (option) {
     case 1: {
         int value;
         printf("\nNumber to insert: ");
-        scanf(" %d", &value);
-        insert(create(value));
+        scanf("%d", &value);
+        insert(&root, create(value));
         waitForEnter();
         break;
     }
 
     case 2:
-        erase();
+        erase(&root);
         waitForEnter();
         break;
 
     case 3:
-        printQueue();
+        printQueue(root);
         waitForEnter();
         break;
     

@@ -1,4 +1,4 @@
-// See queue.h for more info
+// Specific functions to create and handle a queue.
 // Author: Josue Mosiah Contreras Rocha
 // File: queue.h
 // Date: 05/02/20
@@ -13,18 +13,16 @@
 // Public interface
 // -----------------------------
 
-// Global variables
+// Types
 typedef struct Number {
   int element;
   struct Number *next;
 } Number_t;
 
-Number_t *root;
-
 // Functions
 Number_t *next( Number_t *item );
 Number_t *create( int number );
-void printQueue( void );
+void insert( Number_t **ppRoot, Number_t *item );
+void printQueue( Number_t *pRoot );
 bool hasNext( Number_t *item );
-void insert( Number_t *item );
-void erase(void);
+void erase( Number_t **ppRoot );
