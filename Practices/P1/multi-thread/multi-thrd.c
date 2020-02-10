@@ -5,7 +5,7 @@
  * the summation operation is run in multiple threads.
  *
  * Most Unix/Linux/OS X users
- * gcc multi-thrd.c -lpthread
+ * gcc multi-thrd.c thrd-posix.c -lpthread -lrt
  *
  * @author Gagne, Galvin, Silberschatz
  * Operating System Concepts  - Ninth Edition
@@ -16,6 +16,7 @@
 // System and aplication specific headers
 // ------------------------------------------
 #include <pthread.h>
+#include <semaphore.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -26,8 +27,8 @@
 // Shared variables
 // ------------------------------------------
 int sum = 0;
-int threads;
 int *arr;
+sem_t mutex;
 
 // Prototypes
 void *runner( void *params );
@@ -79,18 +80,20 @@ int main(int argc, char *argv[]) {
 
 
 	// Start timer
+	sem_init(&mutex, 0, 1);   /* Create semaphore */
 	clock_t start = clock();
 
 	// Create threads
 	pthread_attr_init(&attr);   /* Default attributes */
 
 	for( int i = 0; i < THREADS; ++i ) {
-		pthread_create((tid + i), &attr, runner, &range[i * 2]);
-		pthread_join(*(tid + i), NULL);   /* Wait for threads */
-	}
+		pthread_create(&tid[i], &attr, runner, &range[i * 2]);
+		pthread_join(tid[i], NULL);   /* Wait for threads */
+    }
 
 	// Stop timer
     clock_t end = clock();
+	sem_destroy(&mutex);   /* Destroy semaphore */
 
 	// Results
 	double seconds = (double)(end - start) / CLOCKS_PER_SEC;
@@ -110,7 +113,10 @@ void *runner(void *params) {
 	
   	// Operations
 	if ( upper > 0 )
-		for ( i = lower; i <= upper; i++ )
+		for ( i = lower; i <= upper; i++ ) {
+    	    sem_wait(&mutex);
 			sum += arr[i];
+			sem_post(&mutex);
+		}
 	pthread_exit(0);
 }
