@@ -1,15 +1,15 @@
 /**
- * A pthread program illustrating how to create a simple 
- * thread and some of the pthread API.
+ * A pthread program illustrating how to create multiple 
+ * threads and some of the pthread API.
  * This program implements the summation function where
  * the summation operation is run in multiple threads.
  *
  * Most Unix/Linux/OS X users
  * gcc multi-thrd.c thrd-posix.c -lpthread -lrt
  *
- * @author Gagne, Galvin, Silberschatz
- * Operating System Concepts  - Ninth Edition
- * Copyright John Wiley & Sons - 2013
+ * @author Josue Mosiah Contreras Rocha
+ * @file multi-thrd.c
+ * @date 09/02/2020
  */
 
 // ------------------------------------------
@@ -104,7 +104,7 @@ int main(int argc, char *argv[]) {
 /**
  * The thread will begin control in this function.
  *
- * @param params Thread's attributes.
+ * @param params Range for each thread.
  */
 void *runner(void *params) {
 	// Initial set up for the thread
