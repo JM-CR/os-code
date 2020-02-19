@@ -14,11 +14,11 @@
 // -----------------------------
 
 // Types
-typedef struct node {
+typedef struct Node {
     int createdAt;
     int lifeTime;  
     char type;
-    Node_t *next;
+    struct Node *next;
 } Node_t;
 
 // Functions
@@ -26,4 +26,4 @@ typedef struct node {
 /**
  * 
  */
-Node_t *create_cnode(void);
+Node_t *create_cnode(char type, bool isFirst);

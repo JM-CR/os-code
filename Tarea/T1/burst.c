@@ -22,7 +22,7 @@
 /**
  * 
  */
-static int random(int n) {
+static int randomNumber(int n) {
     int number;
     srand(0);
     number = rand()%n;
@@ -36,21 +36,21 @@ static int random(int n) {
 // Public functions
 
 Node_t *create_cnode(char type, bool isFirst) {
-    struct node process;
+    Node_t *process = malloc(sizeof(Node_t));
     if (isFirst){
-        process.createdAt = random(19);
+        process->createdAt = randomNumber(19);
     }
     else{
-        process.createdAt = 0;
+        process->createdAt = 0;
     }
     //var Type only could be C for CPU and E for Entries.
-    if (strcmp(type, "C") == 0){
-        process.lifeTime = random(9);
+    if (type == 'c'){
+        process->lifeTime = randomNumber(9);
     }
-    else if (strcmp(type, "E") == 0){
-        process.lifeTime = random(24);
+    else if (type == 'e'){
+        process->lifeTime = randomNumber(24);
     }
-    process.type = type;
-    process.next = NULL;
-    return &process;
+    process->type = type;
+    process->next = NULL;
+    return process;
 }
