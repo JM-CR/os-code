@@ -1,6 +1,6 @@
 // Specific functions to create and handle a queue.
-// Author: Josue Mosiah Contreras Rocha
-// File: queue.h
+// Author: Hector Jair Hernandez Cortes
+// File: burst.h
 // Date: 05/02/20
 
 // ------------------------------------------
@@ -14,21 +14,14 @@
 // -----------------------------
 
 // Types
-struct IO;
-
-typedef struct CPU {
-    date_t createdAt;
+typedef struct node {
+    int createdAt;
     int lifeTime;  
-    IO_t *next;
-} CPU_t;
-
-typedef struct IO {
-    date_t createdAt;
-    int lifeTime;  
+    char type;
     CPU_t *next;
-} IO_t;
+} Node_t;
 
 // Functions
-CPU_t *create_cnode(void);
-IO_t *create_inode(void);
+Node_t *create_cnode(void);
+Node_t *create_inode(void);
 

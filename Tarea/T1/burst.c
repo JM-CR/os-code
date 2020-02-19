@@ -1,6 +1,6 @@
 // See queue.h for more info
-// Author: Josue Mosiah Contreras Rocha
-// File: queue.c
+// Author: Hector Jair Hernandez Cortes
+// File: burst.c
 // Date: 05/02/20
 
 // ------------------------------------------
@@ -20,8 +20,8 @@
 /**
  * 
  */
-static random {
-    
+static int random(int n) {
+
 }
 
 
@@ -44,12 +44,10 @@ Number_t *next( Number_t *item ) {
 /**
  * 
  */
-CPU_t *create_cnode(void) {
+Node_t *create_cnode(void) {
 
 }
 
-IO_t *create_inode(void) {
-
+Node_t *create_inode(void) {
 
 }
-
