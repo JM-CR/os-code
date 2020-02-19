@@ -18,10 +18,12 @@ typedef struct node {
     int createdAt;
     int lifeTime;  
     char type;
-    CPU_t *next;
+    Node_t *next;
 } Node_t;
 
 // Functions
-Node_t *create_cnode(void);
-Node_t *create_inode(void);
 
+/**
+ * 
+ */
+Node_t *create_cnode(void);

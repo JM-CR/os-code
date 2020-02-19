@@ -8,6 +8,8 @@
 // ------------------------------------------
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
 #include "burst.h"
 
 
@@ -21,9 +23,11 @@
  * 
  */
 static int random(int n) {
-
+    int number;
+    srand(0);
+    number = rand()%n;
+    return number;
 }
-
 
 // -----------------------------
 // Public elements
@@ -31,23 +35,22 @@ static int random(int n) {
 
 // Public functions
 
-/**
- * Gets the next node.
- *
- * @param item Element to traverse.
- * @return Pointer to the next element.
- */
-Number_t *next( Number_t *item ) {
-    return item->next;
-}
-
-/**
- * 
- */
-Node_t *create_cnode(void) {
-
-}
-
-Node_t *create_inode(void) {
-
+Node_t *create_cnode(char type, bool isFirst) {
+    struct node process;
+    if (isFirst){
+        process.createdAt = random(19);
+    }
+    else{
+        process.createdAt = 0;
+    }
+    //var Type only could be C for CPU and E for Entries.
+    if (strcmp(type, "C") == 0){
+        process.lifeTime = random(9);
+    }
+    else if (strcmp(type, "E") == 0){
+        process.lifeTime = random(24);
+    }
+    process.type = type;
+    process.next = NULL;
+    return &process;
 }
