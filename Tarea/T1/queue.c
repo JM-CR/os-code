@@ -46,9 +46,11 @@ void printQueue( Node_t *pRoot ) {
 
     // Traverse
     while ( node != NULL ) {
-        printf("Lifetime: %d ", node->element);
+        printf("L: %d ", node->lifeTime);
+        printf("T: %c ", node->type);
         node = node->next;
     }
+    printf("\n");
 }
 
 bool hasNext( Node_t *item ) {

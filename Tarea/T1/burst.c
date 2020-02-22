@@ -22,10 +22,8 @@
 /**
  * 
  */
-static int randomNumber(int n) {
-    int number;
-    srand(0);
-    number = rand()%n;
+int randomNumber(int n) {
+    int number = rand()%n;
     return number;
 }
 
@@ -45,7 +43,7 @@ Node_t *create_cnode(char type, bool isFirst) {
     }
     //var Type only could be C for CPU and E for Entries.
     if (type == 'c'){
-        process->lifeTime = randomNumber(9);
+        process->lifeTime = randomNumber(19);
     }
     else if (type == 'e'){
         process->lifeTime = randomNumber(24);
