@@ -1,4 +1,4 @@
-// See queue.h for more info
+// See burst.h for more info
 // Author: Hector Jair Hernandez Cortes
 // File: burst.c
 // Date: 05/02/20
@@ -17,37 +17,41 @@
 // Private elements
 // -----------------------------
 
-// Private functions
+/* Private functions */
 
 /**
+ * Generates a random number from 0 to n.
  * 
+ * @param n Maximum number.
+ * @return Random value.
  */
-int randomNumber(int n) {
-    int number = rand()%n;
-    return number;
+static int randomNumber(int n) {
+    return rand() % n;;
 }
+
 
 // -----------------------------
 // Public elements
 // -----------------------------
 
-// Public functions
+/* Implementation of the public functions */
 
-Node_t *create_cnode(char type, bool isFirst) {
+Node_t *create_cnode( char type, bool isFirst ) {
+    // Initializate
     Node_t *process = malloc(sizeof(Node_t));
-    if (isFirst){
+
+    // Verify root node
+    if ( isFirst ) 
         process->createdAt = randomNumber(19);
-    }
-    else{
+    else
         process->createdAt = 0;
-    }
-    //var Type only could be C for CPU and E for Entries.
-    if (type == 'c'){
+
+    // Crate other type
+    if ( type == 'c' )
         process->lifeTime = randomNumber(19);
-    }
-    else if (type == 'e'){
+    else if ( type == 'e' )
         process->lifeTime = randomNumber(24);
-    }
+
     process->type = type;
     process->next = NULL;
     return process;

@@ -23,19 +23,17 @@ Node_t *next( Node_t *item ) {
 
 void insert( Node_t **ppRoot, Node_t *item ) {
     // First item
-    Node_t *pRoot = *ppRoot;
-    if ( pRoot == NULL ) {
+    Node_t *currentNode = *ppRoot;
+    if ( currentNode == NULL ) {
         *ppRoot = item;
         return;
     }
 
     // Traverse queue
-    Node_t *currentNode = pRoot;
-    while ( hasNext(currentNode) ) {
+    while ( hasNext(currentNode) )
         currentNode = currentNode->next;
-    }
 
-    // Insert element
+    // Insert item
     currentNode->next = item;
 }
 
@@ -46,8 +44,7 @@ void printQueue( Node_t *pRoot ) {
 
     // Traverse
     while ( node != NULL ) {
-        printf("L: %d ", node->lifeTime);
-        printf("T: %c ", node->type);
+        printf("(%c, %2d) ", node->type, node->lifeTime);
         node = node->next;
     }
     printf("\n");
