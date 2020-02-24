@@ -3,6 +3,9 @@
 // File: burst.h
 // Date: 05/02/20
 
+#ifndef BURST_H
+#define BURST_H
+
 // ------------------------------------------
 // System specific headers
 // ------------------------------------------
@@ -32,3 +35,5 @@ typedef struct Node {
  * @return Pointer to the new node.
  */
 Node_t *create_cnode( char type, bool isFirst );
+
+#endif

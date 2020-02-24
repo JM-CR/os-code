@@ -3,6 +3,9 @@
 // File: queue.h
 // Date: 17/02/20
 
+#ifndef QUEUE_H
+#define QUEUE_H
+
 // -----------------------------
 // System headers
 // -----------------------------
@@ -53,3 +56,5 @@ bool hasNext( Node_t *item );
  * @param ppRoot Pointer to the first element
  */
 void erase( Node_t **ppRoot );
+
+#endif

@@ -3,6 +3,9 @@
 // File: library.h
 // Date: 17/02/20
 
+#ifndef LIBRARY_H
+#define LIBRARY_H
+
 // -----------------------------
 // System headers
 // -----------------------------
@@ -23,3 +26,6 @@
 /**
  * Function's documentation.
  */
+
+
+#endif
