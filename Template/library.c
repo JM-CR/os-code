@@ -13,8 +13,6 @@
 // Private elements
 // -----------------------------
 
-// Private global variables
-
 /* Private macros and constants */
 
 /* Private types */
