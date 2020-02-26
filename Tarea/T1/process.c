@@ -44,7 +44,7 @@ void printQueue( Node_t *pRoot ) {
 
     // Traverse
     while ( node != NULL ) {
-        printf("(%c, %2d) ", node->type, node->lifeTime);
+        printf("(%c, %2d, %2d) ", node->type, node->lifeTime, node->createdAt);
         node = node->next;
     }
     printf("\n");
