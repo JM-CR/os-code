@@ -40,7 +40,7 @@ void insert( Node_t **ppRoot, Node_t *item );
  *
  * @param pRoot Pointer to the first node.
  */
-void printQueue( Node_t *pRoot );
+void printProcess( Node_t *pRoot );
 
 /**
  * Checks if there is a node after the item.

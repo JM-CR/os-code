@@ -59,17 +59,17 @@ static bool checkEntryTime( Node_t *process ) {
  * 
  */
 static void readyQ( Node_t *process[] ) {
-    for ( int i = 0, j = 0; i < TOTAL ; ++i ) {
-        if ( checkEntryTime(process[i]) ) {
-            for ( int j = 0; j < TOTAL; ++j ) {
+    // Check arrive time
+    static unsigned int position = 0;
+    for ( int i = 0; i < TOTAL; ++i )
+        if ( checkEntryTime(process[i]) )
+            readyQueue[position] = *process[i];
 
-            }
-
-            // while ( readyQueue[j] == NULL ) {
-            //     ++j;
-            // }
-        }
-    }
+    // for( int i = 0; i < TOTAL; i++ ) {
+    //      printProcess(process[i]);
+    // }
+    
+    // Increase timer
     totalTime++;
 
     /*
@@ -126,10 +126,6 @@ void initializeQueues( size_t size ) {
 }
 
 void start( Node_t *process[] ) {
-    for( int i = 0; i < TOTAL; i++ )
-        printQueue(process[i]);
-
-    while (true) {
+    while (true) 
         readyQ(process);
-    }
 }

@@ -37,7 +37,7 @@ void insert( Node_t **ppRoot, Node_t *item ) {
     currentNode->next = item;
 }
 
-void printQueue( Node_t *pRoot ) {
+void printProcess( Node_t *pRoot ) {
     // Initialize
     printf("Elements: ");
     Node_t *node = pRoot;
