@@ -24,8 +24,8 @@
 /* Private global variables */
 
 static Node_t *cpuQueue;
-static Node_t *readyQueue;
-static Node_t *ioQueue;
+static Node_t **readyQueue;
+static Node_t **ioQueue;
 static size_t TOTAL;
 
 static unsigned int totalTime = 0;
@@ -36,8 +36,8 @@ static unsigned int totalTime = 0;
 /**
  * 
  */
-static bool cpuQ( void ) {
-    return false;
+static void cpuQ( void ) {
+    
 }
 
 /**
@@ -72,17 +72,24 @@ static void shiftReadyQ( void ) {
  */
 static void readyQ( Node_t *process[] ) {
     // Check arrive time
-    static unsigned int position = 0;
+    static unsigned int position = -1;
     for ( int i = 0; i < TOTAL; ++i )
         if ( checkEntryTime(process[i]) )
-            readyQueue[position++] = *process[i];
-
+            readyQueue[++position] = process[i];
     // for( int i = 0; i < TOTAL; i++ ) {
     //      printProcess(process[i]);
     // }
+    if(cpuQueue == NULL && position!= -1) {
+        cpuQueue = readyQueue[0];
+        cpuQ();
+    }
     
     // Increase timer
     totalTime++;
+    // cpuQueue->lifeTime--;
+    // if(cpuQueue->lifeTime==0){
+    //     printf("cola IO\n");
+    // }
 
     /*
     FIFO(process, TOTAL);
@@ -138,6 +145,11 @@ void initializeQueues( size_t size ) {
 }
 
 void start( Node_t *process[] ) {
-    while (true) 
+    while (true) {
         readyQ(process);
+        for( int i = 0; i < TOTAL; i++ ) {
+         printProcess(process[i]);
+        }
+        sleep(1);
+    }
 }
