@@ -47,12 +47,24 @@ static void ioQ( void ) {
 
 }
 
+/**
+ *
+ */
 static bool checkEntryTime( Node_t *process ) {
     if ( process->createdAt == totalTime ) {
         return true;
     } else {
         return false;
     }
+}
+
+/**
+ *
+ */
+static void shiftReadyQ( void ) {
+    for ( int i = 0; i < TOTAL - 1; ++i )
+        readyQueue[i] = readyQueue[i + 1];
+    readyQueue[TOTAL - 1] = NULL;
 }
 
 /**
@@ -63,7 +75,7 @@ static void readyQ( Node_t *process[] ) {
     static unsigned int position = 0;
     for ( int i = 0; i < TOTAL; ++i )
         if ( checkEntryTime(process[i]) )
-            readyQueue[position] = *process[i];
+            readyQueue[position++] = *process[i];
 
     // for( int i = 0; i < TOTAL; i++ ) {
     //      printProcess(process[i]);
