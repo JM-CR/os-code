@@ -1,10 +1,10 @@
 // Specific functions to create and handle a queue.
 // Author: Josue Mosiah Contreras Rocha
-// File: queue.h
+// File: process.h
 // Date: 17/02/20
 
-#ifndef QUEUE_H
-#define QUEUE_H
+#ifndef PROCESS_H
+#define PROCESS_H
 
 // -----------------------------
 // System headers

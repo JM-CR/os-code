@@ -13,7 +13,7 @@ DEFS =
 BIN = main
 
 # Object files from which $BIN depends
-OBJS = burst.o queue.o
+OBJS = burst.o process.o
 
 # This default rule compiles the executable program
 $(BIN): $(OBJS) $(BIN).c

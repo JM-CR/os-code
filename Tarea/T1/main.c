@@ -7,7 +7,7 @@
 // ------------------------------------------
 #include <stdio.h>
 #include <stdbool.h>
-#include "queue.h"
+#include "process.h"
 
 #define TOTAL 5
 
@@ -64,41 +64,5 @@ FIFO(process, TOTAL);
         iterator++;
      }while(end!=TOTAL);
  */
- }
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     return 0;
 }

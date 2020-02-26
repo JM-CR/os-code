@@ -1,6 +1,6 @@
-// See queue.h for more info
+// See process.h for more info
 // Author: Josue Mosiah Contreras Rocha
-// File: queue.c
+// File: process.c
 // Date: 17/02/20
 
 // ------------------------------------------
@@ -8,7 +8,7 @@
 // ------------------------------------------
 #include <stdlib.h>
 #include <stdio.h>
-#include "queue.h"
+#include "process.h"
 
 
 // -----------------------------
