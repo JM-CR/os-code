@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <unistd.h>
 #include "queue.h"
 
 
@@ -29,6 +30,8 @@ static Node_t **ioQueue;
 static size_t TOTAL;
 
 static unsigned int totalTime = 0;
+static unsigned int position = 0;
+static unsigned int cpuPosition = 0;
 
 
 /* Private functions */
@@ -36,16 +39,34 @@ static unsigned int totalTime = 0;
 /**
  * 
  */
-static void cpuQ( void ) {
-    
+static void ioQ( void) {
+    printf("I/O Queue:\n");
+    if(readyQueue!=NULL){
+        printf("process with their lifetime in I/o");
+    }
+    printf("\n\n\n");
 }
 
 /**
  * 
  */
-static void ioQ( void ) {
-
+static void cpuQ( void) {
+    printf("CPU Queue: \n");
+    if(cpuQueue!=NULL){
+        printf("[0] LF: %d\n", cpuQueue->lifeTime);
+        cpuQueue->lifeTime--;
+        if(cpuQueue->lifeTime <=0){
+            //Erase node
+            //When shitfKey works cpuposition will be 0
+            cpuQueue = readyQueue[cpuPosition+1];
+            cpuPosition++;
+        }
+    }
+    printf("\n");
+    ioQ();
+    
 }
+
 
 /**
  *
@@ -62,9 +83,10 @@ static bool checkEntryTime( Node_t *process ) {
  *
  */
 static void shiftReadyQ( void ) {
-    for ( int i = 0; i < TOTAL - 1; ++i )
-        readyQueue[i] = readyQueue[i + 1];
-    readyQueue[TOTAL - 1] = NULL;
+    //MARK: Have a mistake cause give a segmentation fault
+    // for ( int i = 0; i < TOTAL - 1; ++i )
+    //     readyQueue[i] = readyQueue[i + 1];
+    // readyQueue[TOTAL - 1] = NULL;
 }
 
 /**
@@ -72,61 +94,28 @@ static void shiftReadyQ( void ) {
  */
 static void readyQ( Node_t *process[] ) {
     // Check arrive time
-    static unsigned int position = -1;
-    for ( int i = 0; i < TOTAL; ++i )
-        if ( checkEntryTime(process[i]) )
-            readyQueue[++position] = process[i];
-    // for( int i = 0; i < TOTAL; i++ ) {
-    //      printProcess(process[i]);
-    // }
-    if(cpuQueue == NULL && position!= -1) {
-        cpuQueue = readyQueue[0];
-        cpuQ();
+    for ( int i = 0; i < TOTAL; ++i ){
+        if ( checkEntryTime(process[i]) ){
+            readyQueue[position] = process[i];
+            if(cpuQueue==NULL){
+                cpuQueue=process[i];
+                shiftReadyQ(); 
+            }
+            position++;
+        } 
     }
+    printf("Ready Queue:\n");
+    if(readyQueue!=NULL){
+        for (int c=position-1; c>=0;c--){
+            printf("[%d] LF: %d\n", c,readyQueue[c]->lifeTime); 
+        }
+    }
+    printf("\n");   
     
     // Increase timer
     totalTime++;
-    // cpuQueue->lifeTime--;
-    // if(cpuQueue->lifeTime==0){
-    //     printf("cola IO\n");
-    // }
-
-    /*
-    FIFO(process, TOTAL);
-    FIFO{
-        Node_t *node;
-        int end, iterator;
-        bool first = TRUE;
-        do{
-            node = process[iterator];
-            if(node != NULL){//existing proc
-                if(first){
-                    exectime += node->lifeTime;
-                    node->lifetime = 0;
-                    first = FALSE;
-                    erase(node);
-                }
-                if(node == NULL){//end of proc
-                    end++;
-                    erase(node);
-                }
-                else{// type 'e'
-                    do{
-                        node->lifetime--;
-                    }while(node->lifeTime != 0);
-                }
-                do{//type 'c'
-                    
-                }while(node->lifeTime != 0);
-                node = node->next;
-                
-                if(iterator > TOTAL){
-                    iterator = 0;
-                }
-            }
-            iterator++;
-        }while(end!=TOTAL);
-    */
+    //printing CPU Queue
+    cpuQ();
 }
 
 
@@ -146,10 +135,13 @@ void initializeQueues( size_t size ) {
 
 void start( Node_t *process[] ) {
     while (true) {
+        
+        printf("Time elapsed: %d\n\n", totalTime);
         readyQ(process);
-        for( int i = 0; i < TOTAL; i++ ) {
-         printProcess(process[i]);
-        }
+        // for(int i=0;i<TOTAL;i++){
+        //     printProcess(process[i]);
+        //     printf("\n");
+        // }
         sleep(1);
     }
 }
