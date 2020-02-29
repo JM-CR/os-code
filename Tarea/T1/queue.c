@@ -32,7 +32,7 @@ static size_t TOTAL;
 static unsigned int totalTime = 0;
 static unsigned int position = 0;
 static unsigned int cpuPosition = 0;
-
+static unsigned int ioPosition = 0;
 
 /* Private functions */
 /**
@@ -50,10 +50,13 @@ static void shiftReadyQ( void ) {
  */
 static void ioQ( void) {
     printf("I/O Queue:\n");
-    if(readyQueue!=NULL){
-        printf("process with their lifetime in I/o");
+    if(ioQueue!=NULL){
+        for (int c=ioPosition-1; c>=0;c--){
+            printf("[%d] LF: %d. T: %c\n", c,ioQueue[c]->lifeTime, ioQueue[c]->type); 
+        }
     }
     printf("\n\n\n");
+    
 }
 
 /**
@@ -65,8 +68,9 @@ static void cpuQ( void) {
         printf("[0] LF: %d\n", cpuQueue->lifeTime);
         cpuQueue->lifeTime--;
         if(cpuQueue->lifeTime <=0){
-            //Erase node
-            //When shitfKey works cpuposition will be 0
+            ioQueue[ioPosition] = cpuQueue;
+            ioPosition++;
+            erase(&cpuQueue);
             cpuQueue = readyQueue[cpuPosition];
             shiftReadyQ(); 
             cpuPosition++;
@@ -113,7 +117,6 @@ static void readyQ( Node_t *process[] ) {
         }
     }
     printf("\n");   
-    
     // Increase timer
     totalTime++;
     //printing CPU Queue
