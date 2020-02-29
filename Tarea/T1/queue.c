@@ -55,7 +55,11 @@ static void ioQ( void) {
             printf("[%d] LF: %d. T: %c\n", c,ioQueue[c]->lifeTime, ioQueue[c]->type); 
         }
         for (int c=ioPosition-1; c>=0;c--){
-            ioQueue[c]->lifeTime--; 
+            ioQueue[c]->lifeTime--;
+            if (ioQueue[c]->lifeTime<=0){
+                erase(&ioQueue[c]);
+                //limpiar nodo
+            } 
         }
     }
 
@@ -144,7 +148,6 @@ void initializeQueues( size_t size ) {
 
 void start( Node_t *process[] ) {
     while (true) {
-        
         printf("Time elapsed: %d\n\n", totalTime);
         readyQ(process);
         // for(int i=0;i<TOTAL;i++){
