@@ -54,7 +54,11 @@ static void ioQ( void) {
         for (int c=ioPosition-1; c>=0;c--){
             printf("[%d] LF: %d. T: %c\n", c,ioQueue[c]->lifeTime, ioQueue[c]->type); 
         }
+        for (int c=ioPosition-1; c>=0;c--){
+            ioQueue[c]->lifeTime--; 
+        }
     }
+
     printf("\n\n\n");
     
 }
@@ -68,9 +72,9 @@ static void cpuQ( void) {
         printf("[0] LF: %d\n", cpuQueue->lifeTime);
         cpuQueue->lifeTime--;
         if(cpuQueue->lifeTime <=0){
+            erase(&cpuQueue);
             ioQueue[ioPosition] = cpuQueue;
             ioPosition++;
-            erase(&cpuQueue);
             cpuQueue = readyQueue[cpuPosition];
             shiftReadyQ(); 
             cpuPosition++;
@@ -113,7 +117,7 @@ static void readyQ( Node_t *process[] ) {
     printf("Ready Queue:\n");
     if(readyQueue!=NULL){
         for (int c=position-1; c>=0;c--){
-            printf("[%d] LF: %d\n", c,readyQueue[c]->lifeTime); 
+            printf("[%d] LF: %d.\tT: %c\n", c,readyQueue[c]->lifeTime, readyQueue[c]->type); 
         }
     }
     printf("\n");   
