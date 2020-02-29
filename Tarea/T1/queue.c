@@ -35,7 +35,16 @@ static unsigned int cpuPosition = 0;
 
 
 /* Private functions */
-
+/**
+ *
+ */
+static void shiftReadyQ( void ) {
+    //MARK: Have a mistake cause give a segmentation fault
+    for ( int i = 0; i < TOTAL - 1; ++i )
+        readyQueue[i] = readyQueue[i + 1];
+    readyQueue[TOTAL - 1] = NULL;
+    position--;
+}
 /**
  * 
  */
@@ -58,7 +67,8 @@ static void cpuQ( void) {
         if(cpuQueue->lifeTime <=0){
             //Erase node
             //When shitfKey works cpuposition will be 0
-            cpuQueue = readyQueue[cpuPosition+1];
+            cpuQueue = readyQueue[cpuPosition];
+            shiftReadyQ(); 
             cpuPosition++;
         }
     }
@@ -79,15 +89,7 @@ static bool checkEntryTime( Node_t *process ) {
     }
 }
 
-/**
- *
- */
-static void shiftReadyQ( void ) {
-    //MARK: Have a mistake cause give a segmentation fault
-    // for ( int i = 0; i < TOTAL - 1; ++i )
-    //     readyQueue[i] = readyQueue[i + 1];
-    // readyQueue[TOTAL - 1] = NULL;
-}
+
 
 /**
  * 
