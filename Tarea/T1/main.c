@@ -20,8 +20,8 @@ int main(void) {
     // Add remaining nodes
     for( int i = 0; i < TOTAL; i++ ) {
         for ( int j = 0; j < 1; j++ ) {
-            insert(&process[i], create_cnode('e', false, i+1));
-            insert(&process[i], create_cnode('c', false, i));
+            insert(&process[i], create_cnode('e', false, i + 1));
+            insert(&process[i], create_cnode('c', false, i + 1));
         } 
     }
 

@@ -1,10 +1,10 @@
-// Template to create C libraries.
+// This library simulates a FCFS/FIFO queue.
 // Author: Josue Mosiah Contreras Rocha
-// File: library.h
+// File: queue.h
 // Date: 17/02/20
 
-#ifndef LIBRARY_H
-#define LIBRARY_H
+#ifndef QUEUE_H
+#define QUEUE_H
 
 // -----------------------------
 // System headers
@@ -16,21 +16,18 @@
 // Public interface
 // -----------------------------
 
-/* Constants */
-
-/* Types declarations */
-
-/* Global variables */
-
-/* Function prototypes */
-
 /**
- * Function's documentation.
+ * Initial set up to run the simulation.
+ * This function must be called before start().
+ *
+ * @param size Number of processes.
  */
 void initializeQueues( size_t size );
 
 /**
- * Function's documentation.
+ * Starts the simulation of a FCFS queue.
+ *
+ * @param process Processes that will be used to simulate the queues.
  */
 void start( Node_t *process[] ); 
 

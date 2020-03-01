@@ -35,6 +35,7 @@ typedef struct Node {
  *
  * @param type Node's type: 'c' = CPU or 'e' = I/O.
  * @param isFirst True for the root node; otherwise, false.
+ * @param id Process id (PID).
  * @return Pointer to the new node.
  */
 Node_t *create_cnode( char type, bool isFirst, int id );
