@@ -26,7 +26,7 @@ static Node_t **readyQueue;
 static Node_t **ioQueue;
 
 static int **responseTime;   // TR
-static int **waitTime;       // TE
+static int *waitTime;       // TE
 
 static size_t TOTAL;     // Total of processes
 static int DEATHS = 0;   // Finished processes
@@ -94,19 +94,21 @@ static void shiftReady( void ) {
  */
 static void readyQ( Node_t *process[] ) {
     // Check arrive time
-    for ( int i = 0; i < TOTAL; ++i )
+    for ( int i = 0; i < TOTAL; ++i ){
         if ( checkEntryTime(process[i]) )
             readyQueue[readyIndex++] = process[i];
-
+     }   
+    
     // Check CPU
     if ( cpuQueue == NULL && readyIndex > 0 ) {    
         cpuQueue = readyQueue[0];
         shiftReady();
-
+        
         // Fill responseTime array
         if(rtCont<TOTAL) {
             responseTime[rtCont][0] = cpuQueue->id;
             responseTime[rtCont][1] = totalTime-cpuQueue->createdAt;
+            waitTime[cpuQueue->id]+=totalTime;
             rtCont++;
         }
     }
@@ -207,13 +209,17 @@ void initializeQueues( size_t size ) {
     ioQueue = calloc(TOTAL, sizeof(Node_t));
 
     responseTime = malloc(TOTAL * sizeof(int *));
-    waitTime = malloc(TOTAL * sizeof(int *)); 
+    waitTime = malloc(TOTAL * sizeof(int *));
+    for(int i=0;i<TOTAL;i++){
+        waitTime[i]=0;
+    }
 
     // Fill queues & time arrays
     for ( int i = 0; i < TOTAL; ++i ) {
         readyQueue[i] = ioQueue[i] = NULL;
 		responseTime[i] = (int *)malloc(2 * sizeof(int)); 
     }
+
 }
 
 void start( Node_t *process[] ) {
@@ -232,17 +238,23 @@ void start( Node_t *process[] ) {
 
         // Values for the next run
         totalTime++;
-        sleep(1);
+        sleep(0.2);
 
         // Check missing processes
         if ( DEATHS == TOTAL )
             break;
 
-        // Print responseTime array.
-        for (int i=0; i<TOTAL; i++) { 
-		    printf("\n"); 
-		    for (int j=0; j<2; j++) 
-			    printf("\t%d", responseTime[i][j]); 
-	    } 
+    }
+    // Print responseTime array.
+    printf("\n\nResponse Time\n      Process---Time\n");
+    for (int i=0; i<TOTAL; i++) { 
+	    printf("\n"); 
+		for (int j=0; j<2; j++) 
+		    printf("\t%d", responseTime[i][j]); 
+	} 
+    //print waitTime array
+    printf("\n\nWait Time\n");
+    for(int x=0;x<TOTAL;x++){
+        printf("\tP%d. Time: %d\n", x+1, waitTime[x]);
     }
 }
