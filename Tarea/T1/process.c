@@ -39,12 +39,15 @@ void insert( Node_t **ppRoot, Node_t *item ) {
 
 void printProcess( Node_t *pRoot ) {
     // Initialize
-    printf("Elements: ");
+    printf("P: ");
     Node_t *node = pRoot;
 
     // Traverse
     while ( node != NULL ) {
-        printf("(%c, %2d, %2d) ", node->type, node->lifeTime, node->createdAt);
+        if ( node->createdAt != 0 )
+            printf("(%c, %2d, %2d) ", node->type, node->lifeTime, node->createdAt);
+        else
+            printf("(%c, %2d) ", node->type, node->lifeTime);
         node = node->next;
     }
     printf("\n");
