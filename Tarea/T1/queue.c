@@ -22,11 +22,14 @@
 static Node_t *cpuQueue;
 static Node_t **readyQueue;
 static Node_t **ioQueue;
+static int **responseTime;
+static int **waitTime;
 static size_t TOTAL;
 
 static unsigned int ioIndex = 0;
 static unsigned int readyIndex = 0;
 static unsigned int totalTime = 0;
+static unsigned int rtCont = 0;
 
 /* Private functions */
 
@@ -80,8 +83,14 @@ static void readyQ( Node_t *process[] ) {
             readyQueue[readyIndex++] = process[i];
 
     // Check CPU
-    if ( cpuQueue == NULL && readyIndex > 0 ) {
+    if ( cpuQueue == NULL && readyIndex > 0 ) {    
         cpuQueue = readyQueue[0];
+        //Fill responseTime Array
+        if(rtCont<TOTAL){
+            responseTime[rtCont][0]=cpuQueue->id;
+            responseTime[rtCont][1]=totalTime-cpuQueue->createdAt;
+            rtCont++;
+        }
         shiftReady(); 
     }
 
@@ -147,6 +156,7 @@ static void cpuQ( void) {
             ioQueue[ioIndex++] = cpuQueue->next;  /* Move */
             erase(&cpuQueue);  /* Clean */
             cpuQueue = NULL;
+            
         }
     }
     printf("\n\n\n");
@@ -168,6 +178,13 @@ void initializeQueues( size_t size ) {
     // Fill arrays
     for ( int i = 0; i < size; ++i )
         readyQueue[i] = ioQueue[i] = NULL;
+
+    //fill process and responseTime Array
+    responseTime = (int **)malloc(TOTAL*sizeof(int*));
+    waitTime = (int **)malloc(TOTAL*sizeof(int*)); 
+	
+	for (int i=0;i<TOTAL;i++)
+		responseTime[i] = (int*)malloc(2*sizeof(int)); 
 }
 
 void start( Node_t *process[] ) {
@@ -179,14 +196,20 @@ void start( Node_t *process[] ) {
 
     while (true) {
         // Run queues
-        printf("Time elapsed: %d.\n\n", totalTime);
+        printf("\nTime elapsed: %d.\n\n", totalTime);
         readyQ(process);
         ioQ();
         cpuQ();
 
         // Values next run
         totalTime++;
-        sleep(0.2);
-
+        sleep(0.5);
+        //Print ResponseTime Array.
+        for (int i=0; i<TOTAL; i++) 
+	    { 
+		    printf("\n\n"); 
+		    for (int j=0; j<2; j++) 
+			    printf("\t%d", responseTime[i][j] ); 
+	    } 
     }
 }
