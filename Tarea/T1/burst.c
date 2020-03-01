@@ -36,15 +36,14 @@ static int randomNumber(int n) {
 
 /* Implementation of the public functions */
 
-Node_t *create_cnode( char type, bool isFirst ) {
+Node_t *create_cnode( char type, bool isFirst, int id ) {
     // Initializate
     Node_t *process = malloc(sizeof(Node_t));
-
     // Verify root node
-    if ( isFirst ) 
+    if ( isFirst )
         process->createdAt = randomNumber(19);
     else
-        process->createdAt = 0;
+        process->createdAt = 0;  
 
     // Crate other type
     if ( type == 'c' )
@@ -54,5 +53,8 @@ Node_t *create_cnode( char type, bool isFirst ) {
 
     process->type = type;
     process->next = NULL;
+    process->id = id;
+    process->TE = 0;
+    process->TR = 0;
     return process;
 }

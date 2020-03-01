@@ -15,13 +15,13 @@ int main(void) {
     // Create root nodes
     Node_t *process[TOTAL];
     for ( int i = 0; i < TOTAL; i++ )  
-        process[i] = create_cnode('c', true);
+        process[i] = create_cnode('c', true, i+1);
 
     // Add remaining nodes
     for( int i = 0; i < TOTAL; i++ ) {
-        for ( int j = 0; j < 5; j++ ) {
-            insert(&process[i], create_cnode('e', false));
-            insert(&process[i], create_cnode('c', false));
+        for ( int j = 0; j < 1; j++ ) {
+            insert(&process[i], create_cnode('e', false, i+1));
+            insert(&process[i], create_cnode('c', false, i));
         } 
     }
 

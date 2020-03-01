@@ -22,6 +22,9 @@ typedef struct Node {
     int createdAt; 
     int lifeTime;    
     char type;
+    int id;
+    int TE;
+    int TR;
     struct Node *next;
 } Node_t;
 
@@ -34,6 +37,6 @@ typedef struct Node {
  * @param isFirst True for the root node; otherwise, false.
  * @return Pointer to the new node.
  */
-Node_t *create_cnode( char type, bool isFirst );
+Node_t *create_cnode( char type, bool isFirst, int id );
 
 #endif

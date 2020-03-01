@@ -34,17 +34,18 @@ static unsigned int totalTime = 0;
  *
  */
 static void printNode( char type, int id ) {
+    
     switch (type) {
     case 'c':
-        printf("[%d] LF: %2d\n", id, cpuQueue->lifeTime);
+        printf("[P%d] LF: %2d\n", cpuQueue->id, cpuQueue->lifeTime);
         break;
     
     case 'e':
-        printf("[%d] LF: %2d\tT: %c\n", id, ioQueue[id]->lifeTime, ioQueue[id]->type); 
+        printf("[P%d] LF: %2d\tT: %c\n", ioQueue[id]->id, ioQueue[id]->lifeTime, ioQueue[id]->type); 
         break;
 
     default:
-        printf("[%d] LF: %2d\tT: %c\n", id, readyQueue[id]->lifeTime, readyQueue[id]->type); 
+        printf("[P%d] LF: %2d\tT: %c\n", readyQueue[id]->id, readyQueue[id]->lifeTime, readyQueue[id]->type); 
     }
 }
 
@@ -164,7 +165,6 @@ void initializeQueues( size_t size ) {
     cpuQueue = NULL;
     readyQueue = calloc(size, sizeof(Node_t));
     ioQueue = calloc(size, sizeof(Node_t));
-
     // Fill arrays
     for ( int i = 0; i < size; ++i )
         readyQueue[i] = ioQueue[i] = NULL;
@@ -179,13 +179,14 @@ void start( Node_t *process[] ) {
 
     while (true) {
         // Run queues
-        printf("Time elapsed: %d\n\n", totalTime);
+        printf("Time elapsed: %d.\n\n", totalTime);
         readyQ(process);
         ioQ();
         cpuQ();
 
         // Values next run
         totalTime++;
-        sleep(1);
+        sleep(0.2);
+
     }
 }

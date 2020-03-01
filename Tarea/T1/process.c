@@ -45,9 +45,9 @@ void printProcess( Node_t *pRoot ) {
     // Traverse
     while ( node != NULL ) {
         if ( node->createdAt != 0 )
-            printf("(%c, %2d, %2d) ", node->type, node->lifeTime, node->createdAt);
+            printf("(%c, %2d, %2d, id:%d) ", node->type, node->lifeTime, node->createdAt, node->id);
         else
-            printf("(%c, %2d) ", node->type, node->lifeTime);
+            printf("(%c, %2d, id:%d) ", node->type, node->lifeTime, node->id);
         node = node->next;
     }
     printf("\n");
