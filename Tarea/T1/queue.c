@@ -113,7 +113,7 @@ static void readyQ( Node_t *process[] ) {
         }
     }
 
-    // Print queue
+    // Print queuegit p
     printf("Ready Queue:\n");
     if ( readyQueue != NULL )
         for ( int c = readyIndex - 1; c >= 0; c-- )
@@ -221,6 +221,27 @@ void initializeQueues( size_t size ) {
     }
 
 }
+void printStatistics(void){
+    // Print responseTime array.
+    printf("\n\nResponse Time\n      Process---Time\n");
+    for (int i=0; i<TOTAL; i++) { 
+	    printf("\n"); 
+		for (int j=0; j<2; j++) 
+		    printf("\t%d", responseTime[i][j]); 
+	} 
+    //print waitTime array
+    printf("\n\nWait Time\n");
+    for(int x=0;x<TOTAL;x++){
+        printf("\tP%d. Time: %d\n", x+1, waitTime[x]);
+    }
+
+    //print average response time
+
+    //print average wait time
+
+    //print exit average
+
+}
 
 void start( Node_t *process[] ) {
     // Print processes
@@ -245,16 +266,5 @@ void start( Node_t *process[] ) {
             break;
 
     }
-    // Print responseTime array.
-    printf("\n\nResponse Time\n      Process---Time\n");
-    for (int i=0; i<TOTAL; i++) { 
-	    printf("\n"); 
-		for (int j=0; j<2; j++) 
-		    printf("\t%d", responseTime[i][j]); 
-	} 
-    //print waitTime array
-    printf("\n\nWait Time\n");
-    for(int x=0;x<TOTAL;x++){
-        printf("\tP%d. Time: %d\n", x+1, waitTime[x]);
-    }
+    printStatistics();
 }
