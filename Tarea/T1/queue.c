@@ -47,15 +47,15 @@ static unsigned int rtCont = 0;
 static void printNode( char type, int id ) {
     switch (type) {
     case 'c':
-        printf("[P%d] LF: %2d\n", cpuQueue->id, cpuQueue->lifeTime);
+        printf("P[%02d] LF: %2d\n", cpuQueue->id, cpuQueue->lifeTime);
         break;
     
     case 'e':
-        printf("[P%d] LF: %2d\n", ioQueue[id]->id, ioQueue[id]->lifeTime); 
+        printf("P[%02d] LF: %2d\n", ioQueue[id]->id, ioQueue[id]->lifeTime); 
         break;
 
     default:
-        printf("[P%d] LF: %2d\n", readyQueue[id]->id, readyQueue[id]->lifeTime); 
+        printf("P[%02d] LF: %2d\n", readyQueue[id]->id, readyQueue[id]->lifeTime); 
     }
 }
 
@@ -232,7 +232,7 @@ void start( Node_t *process[] ) {
 
         // Values for the next run
         totalTime++;
-        sleep(0.5);
+        sleep(1);
 
         // Check missing processes
         if ( DEATHS == TOTAL )
