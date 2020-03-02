@@ -9,7 +9,7 @@
 #include <stdbool.h>
 #include "queue.h"
 
-#define TOTAL 5
+#define TOTAL 20
 
 int main(void) {
     // Create root nodes
@@ -19,7 +19,7 @@ int main(void) {
 
     // Add remaining nodes
     for( int i = 0; i < TOTAL; i++ ) {
-        for ( int j = 0; j < 1; j++ ) {
+        for ( int j = 0; j < 5; j++ ) {
             insert(&process[i], create_cnode('e', false, i + 1));
             insert(&process[i], create_cnode('c', false, i + 1));
         } 

@@ -222,25 +222,32 @@ void initializeQueues( size_t size ) {
 
 }
 void printStatistics(void){
+    float ART=0, AWT=0, EAT=0;
     // Print responseTime array.
     printf("\n\nResponse Time\n      Process---Time\n");
     for (int i=0; i<TOTAL; i++) { 
 	    printf("\n"); 
-		for (int j=0; j<2; j++) 
-		    printf("\t%d", responseTime[i][j]); 
+		for (int j=0; j<2; j++){
+		    printf("\t%d", responseTime[i][j]);
+            ART+=responseTime[i][j];
+        } 
 	} 
     //print waitTime array
     printf("\n\nWait Time\n");
     for(int x=0;x<TOTAL;x++){
         printf("\tP%d. Time: %d\n", x+1, waitTime[x]);
+        AWT+= waitTime[x];
     }
 
     //print average response time
-
+    ART= (ART/TOTAL);
+    printf("\nAverage response Time:\t%0.3f\n",ART);
     //print average wait time
-
+    AWT= (AWT/TOTAL);
+    printf("Average Wait Time:\t%0.3f\n",AWT);
     //print exit average
-
+    EAT= (totalTime/TOTAL);
+    printf("Exit Average Time:\t%0.3f\n",EAT);
 }
 
 void start( Node_t *process[] ) {
